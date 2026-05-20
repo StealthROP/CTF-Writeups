@@ -1,4 +1,4 @@
-# Liminal Signal — RE 1
+# Liminal Signal — RE 
 > Flag: `JISSA{3nt1ty_kn0ws_y0ur_n4m3}`
 
 ## 1. Analysis
