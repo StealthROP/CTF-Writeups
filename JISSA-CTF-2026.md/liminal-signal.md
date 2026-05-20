@@ -1,7 +1,7 @@
 # Liminal Signal — RE 1
 > Flag: `JISSA{3nt1ty_kn0ws_y0ur_n4m3}`
 
-## **1\. ANALYSIS**
+## 1. Analysis
 Let's check first its `file` and `strings` of the the binary.
 ```
 $file liminal_signal
@@ -48,5 +48,5 @@ Flag: JISSA{3nt1ty_kn0ws_y0ur_n4m3}
 ```
 After running the binary, it asks for my input, and my input is `y0u_f0und_th3_w4ll` and it reveals the flag.
 
-## **2\. LESSONS**
+## 2. Lessons
 1.  It is important to always begin by inspecting the `file` (binary’s metadata) and `strings`, as they can quickly reveal useful information. Additionally, tools like `strace`, `objdump`, and `ltrace` should be used during initial analysis to better understand the program’s behavior and gather early insights.
