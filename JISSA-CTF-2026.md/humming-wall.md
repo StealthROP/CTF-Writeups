@@ -6,9 +6,9 @@
 $file humming_wall
 humming_wall: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d2cfeb8789f728c0a469afc9814c2c5a26730ee5, for GNU/Linux 3.2.0, stripped
 ```
-Let's use Ghidra to analyze the binary.
+Let's use `Ghidra` to analyze the binary.
 
-Upon checking on Ghidra, I saw the main function. This binary accepts only 22 bytes of input 'line 18 sVar2 == 0x16' . The while loop does is Xoring the bytes of the array &DAT_00102080.
+Upon checking on `Ghidra`, I saw the main function. This binary accepts only `22` bytes of input `sVar2 == 0x16`. 
 
 ```
 if (sVar2 == 0x16) {
