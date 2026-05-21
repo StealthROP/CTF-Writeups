@@ -6,7 +6,7 @@ Let's do the routine of checking the binary using `file` and `strings`.
 $file threshold
 threshold: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=a48db6db21f3cc877b2d517c325167d9a84c87b0, for GNU/Linux 3.2.0, stripped
 ```
-This is a binary that runs native on linux environment and is stripped.
+This is a binary that runs native on linux environment and is stripped. Since it is stripped, symbol information like function names is removed, so analysis relies on disassembly and runtime inspection to understand its behavior
 
 ```
 Enter the exit code:
