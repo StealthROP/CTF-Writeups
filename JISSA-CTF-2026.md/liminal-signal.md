@@ -7,8 +7,7 @@ Let's check first its `file` and `strings` of the the binary.
 $file liminal_signal
 liminal_signal: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=51c325ccf91aa82319b988f4b9a12a0519e6a3e4, for GNU/Linux 3.2.0, not stripped 
 ```
-The binary is a stripped 64-bit ELF executable for Linux. Since it is stripped, symbol information like function names is removed, so analysis relies on disassembly and runtime inspection to understand its behavior.
-
+The binary is not stripped 64-bit ELF executable for Linux. Since it is not stripped, symbol information such as function names is still present, making analysis easier through direct inspection, debugging, and disassembly.
 ```
 $strings liminal_signal
 GLIBC_2.34
