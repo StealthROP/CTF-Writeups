@@ -63,7 +63,7 @@ flag = ''.join(chr(b ^ key) for b in target)
 print(f"Result: {flag}")
 ```
 
-First I get the bytes from the `target` array in memory and I get the key which is `0x4e`. After that I XOR each byte with the key to reverse the encryption and print it as the `flag`.
+First I get the bytes from the `target` array in memory and I get the key which is `0x4e`. After that I `XOR` each byte with the `key` to reverse the encryption and print it as the `flag`.
 
 ## 4. Lessons
 1.  It would be a great help to know how to reverse XOR logic. Since XOR is reversible, applying the same key (`0x4e`) again reveals the original flag from the encoded `target` bytes.
