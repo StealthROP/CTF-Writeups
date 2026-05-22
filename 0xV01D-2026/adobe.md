@@ -94,7 +94,7 @@ Each input byte is XORed with a repeating 32-byte key, and the result is truncat
 
 A changing counter is added, and the result is wrapped to 0–255 (one byte).
 
-## 2. Script
+## 2. Script and Explanation
 
 Key idea of the script instead of forward.
 
@@ -195,3 +195,55 @@ print(result)
 print(result.decode(errors="replace"))
 ```
 
+```Python
+inv_sbox = [0] * 256
+for i, v in enumerate(sbox):
+    inv_sbox[v] = i
+```
+
+I create a 256-slot array so every possible byte value has a place to store its inverse mapping.
+
+```
+index:  0 1 2 3 4 ... 255
+value:  0 0 0 0 0 ... 0
+```
+
+`enumerate` gives both the `index` and `value` of each `S-box` entry, and `v` is just the current `S-box` output being mapped back to its `input` index.
+
+```Python
+for i, v in enumerate(sbox):
+    inv_sbox[v] = i
+```
+
+This part of the script reverses the binary’s transformation step by step to recover the original input `flag`. For each `byte`, `tgt = target[i]` represents the encrypted output produced by the program after applying an `S-box` substitution on a value that was first created by XORing the `input` with a repeating `32-byte key` and then adding a changing iteration counter `modulo 256`. The script first uses `inv_sbox[tgt]` to undo the `S-box` and recover the pre-substitution value, then subtracts the current iteration (wrapped with & 0xff) to reverse the additive shift, leaving the result equal to `input[i] ^ key[i % 32]`. Since `XOR` is reversible, the script XORs again with the same `key` byte to retrieve the original `input` character (ch), appends it to the `flag`, and updates iteration exactly as the binary does so the state stays synchronized across all bytes. Finally, bytes(flag) converts the recovered list of integer byte values into the final readable flag string.
+
+```Python
+for i in range(0x30):
+
+    tgt = target[i]
+
+    # Recover:
+    # sbox[((key ^ input) + iteration) & 0xff] = tgt
+    #
+    # inverse:
+    # ((key ^ input) + iteration) & 0xff = inv_sbox[tgt]
+    #
+    val = (inv_sbox[tgt] - iteration) & 0xff
+
+    ch = val ^ key[i & 0x1f]
+
+    flag.append(ch)
+
+    iteration = (iteration + 0x11) & 0xff
+
+result = bytes(flag)
+```
+
+## 3. Lessons
+1. Encryption Model Identified
+
+The obfuscation was identified as a custom byte-wise stream cipher that combines `XOR` with a repeating key, a state-dependent counter, and a substitution (S-box) layer.
+
+2. Overall Cryptographic Interpretation
+
+The system is best described as a `hybrid stream cipher` combined with a `substitution-permutation layer`, rather than a secure cryptographic algorithm.
