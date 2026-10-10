@@ -1,4 +1,4 @@
-This is a very simple concept I managed to learn today. This task required me to patch a binary or specifically a **memory data patching**. I was given a program called hello_world.
+Today, I learned how to modify a program's data directly in memory while debugging it with GDB and Pwndbg. This task required me to patch a binary or specifically a **memory data patching**. I was given a program called hello_world.
 
 ```
 file hello_world
@@ -40,4 +40,11 @@ As you can see below, at the address of `0x08048414` the binary is calling the `
 
 `pwndbg> set {char [12]} 0x080484b0 = "hello venus"`
 
-The above command does a few things, `set` modifies the value in the target's process's memory, `{char [12]}` we setup a char with an array of 12 characters, 
+The above command does a few things, `set` modifies the value in the target's process's memory, `{char [12]}` we setup a char with an array of 12 characters, now you might ask me why is it 12 characters even though the **hello venus** are just 11 characters, the answer for that is we need a null terminator at the end \0. Going back, we will print the value of the address of `0x80484b0` as a string.
+
+```
+pwndbg> x/s 0x80484b0
+0x80484b0:      "hello venus"
+```
+
+Pretty cool ain't it? It's my first time actually writing these kind of writeups lmao.
