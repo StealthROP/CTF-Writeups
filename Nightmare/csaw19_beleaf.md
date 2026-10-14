@@ -117,4 +117,61 @@ The initialization of `char input_buf[136];` allocates **136** bytes for the inp
     }
 ```
 
-Our input length goes through a loop and increments the index by **1** in each iteration. After that, the current character in our input buffer is typecast to an `int` and passed to `transform_func`, which performs some kind of transformation and stores the result in `transformed_input`. Another thing is I gained a very great knowledge from this guy [CyberSmash](https://www.youtube.com/@cybersmash3447). He explained that whenever I see something like `&desired_output + i * 8 or i * 4`, I should pay attention to the memory offset. This may indicate that the binary is accessing data at offsets of 8 bytes or 4 bytes, respectively, depending on the pointer type and the surrounding operations. For example, `i * 8` may indicate that successive values are accessed **8** bytes apart, while `i * 4` may indicate that they are **4** bytes apart. Visually, if each value occupies **8** bytes, the next value starts after those **8** bytes. However, we must also consider the pointer type to determine the actual offset.
+Our input length goes through a loop, and the index increments by **1** in each iteration. After that, the current character in our input buffer is typecast to an `int` and passed to `transform_func`, which performs some kind of transformation and stores the result in `transformed_input`.
+
+Another thing is that I gained some great knowledge from [CyberSmash](https://www.youtube.com/@cybersmash3447). He explained that whenever I see something like `&desired_output + i * 8` or `i * 4`, I should pay attention to the memory offsets. This may indicate that the binary is accessing data at offsets of **8** bytes or **4** bytes, respectively, depending on the pointer type and the surrounding operations. For example, if each value occupies **8 bytes**, the next value starts **8** bytes after the previous one. However, we must also consider the pointer type to determine the actual offset.
+
+`if (transformed_input != *(long *)(&desired_output + i * 8)) {` this part compares our transformed input to the bytes stored in the address of `&desired_output` and exits when it's incorrect.
+
+Bytes on the `&desired_output`, as you can see it is **8** bytes away from the previous bytes:
+
+```
+                             desired_output                                  
+        003014e0 01              ??         01h
+        003014e1 00              ??         00h
+        003014e2 00              ??         00h
+        003014e3 00              ??         00h
+        003014e4 00              ??         00h
+        003014e5 00              ??         00h
+        003014e6 00              ??         00h
+        003014e7 00              ??         00h
+        003014e8 09              ??         09h
+        003014e9 00              ??         00h
+        003014ea 00              ??         00h
+        003014eb 00              ??         00h
+        003014ec 00              ??         00h
+        003014ed 00              ??         00h
+        003014ee 00              ??         00h
+        003014ef 00              ??         00h
+        003014f0 11              ??         11h
+```
+
+### 2. Analyzing transformation function
+
+Let's inspect the `transfom_func` function.
+
+```C
+long transform_func(char param_1)
+
+{
+  long local_10;
+  
+  local_10 = 0;
+  while ((local_10 != -1 && ((int)param_1 != *(int *)(&lookup + local_10 * 4))))
+  {
+    if ((int)param_1 < *(int *)(&lookup + local_10 * 4)) {
+      local_10 = local_10 * 2 + 1;
+    }
+    else if (*(int *)(&lookup + local_10 * 4) < (int)param_1) {
+      local_10 = (local_10 + 1) * 2;
+    }
+  }
+  return local_10;
+}
+```
+
+The function initializes `local_10` to `0`, which serves as the index for searching the `lookup` array. The `while` loop checks whether the index is valid and whether the input character matches the current entry. If the character is smaller than the current value, the search moves to the left child using `local_10 * 2 + 1`. Otherwise, if it is greater, the search moves to the right child using `(local_10 + 1) * 2`. Each entry occupies 4 bytes, which explains the multiplication by `4` when accessing the array. The loop continues until a match is found or the index becomes `-1`. Finally, the function returns the index where the character was found, or `-1` if the search fails.
+
+### 3. Solving the puzzle
+
+After two solid days of figuring this thing out, I finally got the answer. there is `&desired_output` in which supposed to be the order of our flag, and get the right addresses from `&lookup`. The thing I'm so confused of is finding out of should I be using script to bruteforce this or manually solve this one (Ryu's note: I chose the manual solve as this was the part my brain gets and clicks some things).  
