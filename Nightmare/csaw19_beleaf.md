@@ -213,6 +213,15 @@ This correctly corresponds to address produced on the script.
 
 > Flag: flag{we_beleaf_in_your_re_future}
 
+Running the program again.
+
+```
+./beleaf
+Enter the flag
+>>> flag{we_beleaf_in_your_re_future}
+Correct!
+```
+
 ### 4. Lessons
 1. This challenge tired me out a lot because I didn't even understand why the binary search tree was there in the first place, lmfao. However, I gained a lot of knowledge, especially in understanding how to skip the extra bytes when analyzing the data and focus on the actual values I needed.
 
