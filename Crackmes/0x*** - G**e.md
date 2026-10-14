@@ -120,7 +120,7 @@ I checked on the **Ghidra** what is the address of the `open_batcave` and this i
 
 The address of `open_batcave` is **00401186**. Now that I know the address of the `open_batcave` function, I can now explain how I created the Python payload. To better understand how the exploit works, let's first visualize the stack layout and see where the buffer, saved RBP, and return address are located.
 
-## Script & Explanation
+## 2. Script & Explanation
 
 This is the ASM code on the `check_password` function:
 
