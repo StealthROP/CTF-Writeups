@@ -40,7 +40,7 @@ Upon checking the strings, I noticed that there is a `memcmp` function which mea
 
 I will check it on `Ghidra` first to identify the logic of the `memcmp` function.
 
-```
+```C
     if (input_length == 0x14) {
       key = memcmp(local_98,local_b8,0x14);
       bVar4 = key == 0;
