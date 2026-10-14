@@ -191,7 +191,7 @@ for num in desired_output:
 First I copied the hex bytes from the `&desired_output` and converted that into `decimal`. After that I copied the starting address from `&lookup` which is `0x00301020`, I then stored the bytes in array on `num` then I just copied this part `&lookup + local_10 * 4` and print it with an add ons of `hex` why hex? because if you just let it print, it will be converted into `int`, but we need an address and address starts with **0x** indicating we need it is made as hex values. 
 
 Example run of script:
-```Python
+```
 python -u "/home/equus/CTF/Nightmare/beginner-reversing/beleaf.py"
 0x301024
 0x301044
@@ -200,7 +200,7 @@ python -u "/home/equus/CTF/Nightmare/beginner-reversing/beleaf.py"
 ```
 
 Cross referencing on the `&lookup`
-```C
+```
         00301024 66              ??         66h    f
         00301044 6c              ??         6Ch    l
         00301064 61              ??         61h    a
@@ -211,3 +211,7 @@ This correctly corresponds to address produced on the script.
 
 > Flag: flag{we_beleaf_in_your_re_future}
 
+### 4. Lessons
+1. This challenge tired me out a lot because I didn't even understand why the binary search tree was there in the first place, lmfao. However, I gained a lot of knowledge, especially in understanding how to skip the extra bytes when analyzing the data and focus on the actual values I needed.
+
+2. Persistence is the key, and sometimes going back to review the code is the answer. I suspected that I needed to brute-force the flag or solve it manually, but I couldn't figure out the right approach. In the end, I realized that I only needed to cross-reference the values from `desired_output` with the entries in `lookup` to reconstruct the flag.
