@@ -107,3 +107,14 @@ Contrary to what I said earlier, I noticed that this binary may be vulnerable to
 
 The initialization of `char input_buf[136];` allocates **136** bytes for the input buffer. Meanwhile, `if (input_len < 0x21)` checks whether our input length is less than **33** characters and rejects it if the condition is true. However, this check only enforces a minimum input length, and there is no visible check for the maximum input length. This leads to the possibility of a stack buffer overflow if the input exceeds the buffer's capacity and the `scanf()` format string does not limit the number of characters read.
 
+```C
+  for (i = 0; i < input_len; i = i + 1) {
+    transformed_input = transform_func((int)input_buf[i]);
+    if (transformed_input != *(long *)(&desired_output + i * 8)) {
+      puts("Incorrect!");
+                    /* WARNING: Subroutine does not return */
+      exit(1);
+    }
+```
+
+Our input length goes through a loop and increments the index by **1** in each iteration. After that, the current character in our input buffer is typecast to an `int` and passed to `transform_func`, which performs some kind of transformation and stores the result in `transformed_input`. Another thing is I gained a very great knowledge from this guy [CyberSmash](https://www.youtube.com/@cybersmash3447). He explained that whenever I see something like `&desired_output + i * 8 or i * 4`, I should pay attention to the memory offset. This may indicate that the binary is accessing data at offsets of 8 bytes or 4 bytes, respectively, depending on the pointer type and the surrounding operations. For example, `i * 8` may indicate that successive values are accessed **8** bytes apart, while `i * 4` may indicate that they are **4** bytes apart. Visually, if each value occupies **8** bytes, the next value starts after those **8** bytes. However, we must also consider the pointer type to determine the actual offset.
