@@ -37,7 +37,7 @@ GCC: (Debian 14.2.0-19) 14.2.0
 
 Let's use Ghidra to analyze the binary.
 
-```
+```C
     if (input_length == 0x13) {
       key = 0x55;
       i = 0;
@@ -67,8 +67,7 @@ Array indexing of the expected byte at position `i`.
 
 ## 2. Script and Explanation
 
-```
-Python
+```Python
 target = [ 0x71, 0xa3, 0x47, 0x2c, 0xa4, 0xbf, 0xb1, 0xd1, 0xf3, 0x52, 0x31, 0xf0, 0x36, 0xc6, 0xe6, 0x00, 0x90, 0x91, 0x31 ]
 
 key = 0x55
