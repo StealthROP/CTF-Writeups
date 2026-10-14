@@ -174,4 +174,40 @@ The function initializes `local_10` to `0`, which serves as the index for search
 
 ### 3. Solving the puzzle
 
-After two solid days of figuring this thing out, I finally got the answer. there is `&desired_output` in which supposed to be the order of our flag, and get the right addresses from `&lookup`. The thing I'm so confused of is finding out of should I be using script to bruteforce this or manually solve this one (Ryu's note: I chose the manual solve as this was the part my brain gets and clicks some things).  
+After two solid days of figuring this thing out, I finally got the answer. there is `&desired_output` in which supposed to be the order of our flag, and get the right addresses and get the correct bytes from `&lookup`. The thing I'm so confused of is finding out of should I be using script to bruteforce this or manually solve this one (Ryu's note: I chose the manual solve as this was the part my brain gets and clicks some things).  
+
+Now if you refer back to the section _2. Analyzing transformation function_, we can see that the first byte is 01, the next is 09h, and the next is 11h, and so on. I built a script that calculates the correct address. 
+
+```Python
+desired_output = [1, 9, 17, 39, 2, 0, 18, 3, 8, 18, 9, 18, 17, 1, 3, 19, 4, 3, 5, 21, 46, 10, 3, 10, 18, 3, 1, 46, 22, 46, 10, 18, 6]
+
+stored = 0x00301020
+
+for num in desired_output:
+    addr = stored + (4 * num)
+    print(hex(addr))
+```
+
+First I copied the hex bytes from the `&desired_output` and converted that into `decimal`. After that I copied the starting address from `&lookup` which is `0x00301020`, I then stored the bytes in array on `num` then I just copied this part `&lookup + local_10 * 4` and print it with an add ons of `hex` why hex? because if you just let it print, it will be converted into `int`, but we need an address and address starts with **0x** indicating we need it is made as hex values. 
+
+Example run of script:
+```Python
+python -u "/home/equus/CTF/Nightmare/beginner-reversing/beleaf.py"
+0x301024
+0x301044
+0x301064
+0x3010bc
+```
+
+Cross referencing on the `&lookup`
+```C
+        00301024 66              ??         66h    f
+        00301044 6c              ??         6Ch    l
+        00301064 61              ??         61h    a
+        003010bc 67              ??         67h    g
+```
+
+This correctly corresponds to address produced on the script.
+
+> Flag: flag{we_beleaf_in_your_re_future}
+
