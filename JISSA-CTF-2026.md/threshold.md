@@ -31,7 +31,7 @@ Exit code accepted: %s
 ```
 There is nothing that I found useful for solving this challenge, let's decompile it on Ghidra.
 
-# 2\. Observations
+# 2. Observations
 > Note I renamed some of the variables.
 
 I did deep checking on this pseudo-code and I found some leads, first it takes my `input` on exactly `0x1b = 27`.
@@ -40,7 +40,7 @@ I did deep checking on this pseudo-code and I found some leads, first it takes m
 
 And XOR's my input by `0x4e = 78` and it compares the result to the address of the byte stored in `&target`. If it doesn't match, it will reject it instantly.
 
-```
+```C
       do {
         if ((input[i] ^ 0x4e) != (&target)[i]) {
           puts("  [ENTITY_ALERT] Wrong code. The walls are closing in...");
@@ -51,8 +51,7 @@ And XOR's my input by `0x4e = 78` and it compares the result to the address of 
 
 ## 3. Scripts
 Script for reversing the XOR encryption.
-```
-Python
+```Python
 target = [ 0x04, 0x07, 0x1d, 0x1d, 0x0f, 0x35, 0x20, 0x7e, 0x2d, 0x22, 0x7f, 0x3e, 
 0x11, 0x7f, 0x20, 0x3a, 0x7e, 0x11, 0x3a, 0x26, 0x7d, 0x11, 0x38, 0x7e, 0x7f, 0x2a, 0x33 ]
 
