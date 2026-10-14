@@ -53,7 +53,7 @@ BATCAVE ACCESS TERMINAL
 Decompiled binary on Ghidra.
 
 **main**
-```
+```C
 int main(void)
 
 {
@@ -69,7 +69,7 @@ int main(void)
 ```
 
 **check_password**
-```
+```C
 void check_password(void)
 
 {
