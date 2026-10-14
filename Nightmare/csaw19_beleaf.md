@@ -197,6 +197,7 @@ python -u "/home/equus/CTF/Nightmare/beginner-reversing/beleaf.py"
 0x301044
 0x301064
 0x3010bc
+...
 ```
 
 Cross referencing on the `&lookup`
@@ -205,6 +206,7 @@ Cross referencing on the `&lookup`
         00301044 6c              ??         6Ch    l
         00301064 61              ??         61h    a
         003010bc 67              ??         67h    g
+        ...
 ```
 
 This correctly corresponds to address produced on the script.
