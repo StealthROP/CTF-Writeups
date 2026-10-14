@@ -38,7 +38,7 @@ Correct! Access Granted.
 Wrong serial. Access Denied.
 ```
 
-### 2. Static Analysis
+Below is the decompiled code from **Ghidra**.
 
 ```C
 undefined8 main(void)
