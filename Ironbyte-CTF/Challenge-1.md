@@ -123,6 +123,18 @@ Let me breakdown the following instructions above, the first instruction is read
 0x8049037 <_loop+21>    jmp    _fail                       <_fail>
 ```
 
-The next 3 instructions dictates whether we win or not. The first instruction compares the value of `0x988` to the value stored in `EBX`, the register contains only `0x21e` because that's the sum of the hex value of our input `hello`. It jumps to function `_win` if they are equal or greater than the compared value. On the other hand, we have `_fail`, in this case, we fail because we didn't manage to meet the required value in the comparison.
+The next 3 instructions dictates whether we win or not. The first instruction compares the value of `0x988` to the value stored in `EBX`, the register contains only `0x21e` because that's the sum of the hex value of our input `hello`. It jumps to function `_win` if they are equal or greater than the compared value `0x988`. On the other hand, we have `_fail`, in this case, we fail because we didn't manage to meet the required value in the comparison.
 
 ## 2. Solution
+
+Now that we know all the function, we will proceed to the solution part of this challenge. I used a **string to hex** website for this to identify which value holds the highest, in this case I found out the `z` holds `7A` in hex, so I spammed the `z` all the way to the maximum input length which is 20 and solved the challenge. The sum of 20 `z's` are `0x994`.
+
+```
+./chall1
+zzzzzzzzzzzzzzzzzzzz
+Congratz !
+```
+
+## 3. Learning
+1. I just literally found out that `0x8049022 <_loop>        mov    al, byte ptr [ecx + buffer]     AL, [buffer]` is just reading one byte and I'm so genuinely impressed by this information, I will apply this information when solving for future CTF challenges.
+2. `0x8049014 <_start+20>    int    0x80 <SYS_read>` this `int` instruction were new to me, and now that I know this is an system interrupt used by 32-bit Linux program. I also learned that `EAX` containing `0x3` identifies the read system call. I can navigate the binary more comfortably in the future with this newly gained information. 
