@@ -174,7 +174,7 @@ The function initializes `local_10` to `0`, which serves as the index for search
 
 ### 3. Solving the puzzle
 
-After two solid days of figuring this thing out, I finally got the answer. there is `&desired_output` in which supposed to be the order of our flag, and get the right addresses and get the correct bytes from `&lookup`. The thing I'm so confused of is finding out of should I be using script to bruteforce this or manually solve this one (Ryu's note: I chose the manual solve as this was the part my brain gets and clicks some things).  
+After two solid days of figuring this thing out, I finally got the answer. There is `&desired_output` in which supposed to be the order of our flag, and get the right addresses and get the correct bytes from `&lookup`. The thing I'm so confused of is finding out if should I be using script to bruteforce this or manually solve this one (Ryu's note: I chose the manual solve as this was the part my brain gets and clicks some things).  
 
 Now if you refer back to the section _2. Analyzing transformation function_, we can see that the first byte is 01, the next is 09h, and the next is 11h, and so on. I built a script that calculates the correct address. 
 
