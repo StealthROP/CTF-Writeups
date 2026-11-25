@@ -1,6 +1,6 @@
 # Challenge — Reverse Engineering
 
-### I use Ironbyte's YouTube CTF challenges as references, but I write my own walkthroughs based on what I learned and understood. I don't just follow along; I dig deeper into the concepts and document my own findings. [Youtube Link](https://www.youtube.com/watch?v=1iptoUKXrcI&list=PL-A03qCBcinTiuCUtfhWGy1HMpnr0rOdh&index=9) 
+I use Ironbyte's YouTube CTF challenges as references, but I write my own walkthroughs based on what I learned and understood. I don't just follow along; I dig deeper into the concepts and document my own findings. [Youtube Link](https://www.youtube.com/watch?v=1iptoUKXrcI&list=PL-A03qCBcinTiuCUtfhWGy1HMpnr0rOdh&index=9) 
 
 ## 1. Analysis
 ```
